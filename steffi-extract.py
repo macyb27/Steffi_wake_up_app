@@ -27,8 +27,20 @@ def main() -> None:
 
     os.makedirs(output_directory, exist_ok=True)
 
+    # Normalize base64: strip whitespace/newlines, remove data: prefix, fix padding
+    normalized_b64 = base64_string.strip()
+    if normalized_b64.startswith("data:"):
+        try:
+            normalized_b64 = normalized_b64.split(",", 1)[1]
+        except Exception:
+            pass
+    normalized_b64 = "".join(normalized_b64.split())
+    missing_padding = len(normalized_b64) % 4
+    if missing_padding:
+        normalized_b64 += "=" * (4 - missing_padding)
+
     try:
-        zip_bytes = base64.b64decode(base64_string)
+        zip_bytes = base64.b64decode(normalized_b64)
     except Exception as decode_error:  # noqa: BLE001 - broad for user convenience
         raise SystemExit(f"Failed to decode base64 input: {decode_error}")
 
