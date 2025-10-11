@@ -1,0 +1,15 @@
+@keyframes partyPulse {
+  0% { transform: scale(1); filter: drop-shadow(0 0 10px rgba(255, 42, 213, 0.5)); }
+  50% { transform: scale(1.02); filter: drop-shadow(0 0 26px rgba(255, 42, 213, 0.9)); }
+  100% { transform: scale(1); filter: drop-shadow(0 0 10px rgba(255, 42, 213, 0.5)); }
+}
+
+.party-mode .monster-card, .party-mode .btn.neon {
+  animation: partyPulse 1.8s infinite ease-in-out;
+}
+
+.party-mode body {
+  background: radial-gradient(1200px 800px at 20% 10%, rgba(255, 42, 213, 0.25), transparent 60%),
+              radial-gradient(1000px 900px at 80% 20%, rgba(255, 101, 225, 0.2), transparent 60%),
+              linear-gradient(180deg, #0b0b0f 0%, #0b0b0f 100%);
+}
