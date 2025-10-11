@@ -15,6 +15,8 @@ import { soundManager } from './utils/sounds';
 import confetti from 'canvas-confetti';
 import { EasterEggs } from './components/EasterEggs';
 import { MotivationPopup } from './components/MotivationPopup';
+import { LoveMessageBox } from './components/LoveMessageBox';
+import { getRandomLoveMessage } from './utils/messages';
 
 const AppContainer = styled.div`
   min-height: 100vh;
@@ -134,13 +136,28 @@ const AlarmScreen = styled(motion.div)`
 
 const AlarmTitle = styled.h1`
   font-family: ${theme.fonts.display};
-  font-size: 64px;
+  font-size: 36px;
   margin: 24px 0;
   text-align: center;
   background: ${theme.colors.gradient};
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  max-width: 600px;
+  line-height: 1.4;
+`;
+
+const LoveMessageButton = styled(Button)`
+  background: linear-gradient(135deg, ${theme.colors.primary}, ${theme.colors.primaryLight});
+  font-size: 20px;
+  padding: 20px 40px;
+  margin: 20px 0;
+  box-shadow: ${theme.shadows.neon};
+  
+  &:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 30px ${theme.colors.primary};
+  }
 `;
 
 const ButtonGroup = styled.div`
@@ -177,6 +194,7 @@ function App() {
   const [activeAlarm, setActiveAlarm] = useState<Alarm | null>(null);
   const [showMiniGame, setShowMiniGame] = useState(false);
   const [currentTime, setCurrentTime] = useState(new Date());
+  const [alarmMessage, setAlarmMessage] = useState(getRandomLoveMessage());
   
   // Check for alarms
   useEffect(() => {
@@ -202,6 +220,7 @@ function App() {
   
   const triggerAlarm = (alarm: Alarm) => {
     setActiveAlarm(alarm);
+    setAlarmMessage(getRandomLoveMessage());
     soundManager.playSound(alarm.soundId, 0.7);
     
     // Vibrate if supported
@@ -280,6 +299,8 @@ function App() {
         <Content>
           <Clock />
           
+          <LoveMessageBox />
+          
           <Stats
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -334,31 +355,42 @@ function App() {
                 monster={getMonsterById(activeAlarm.monsterId) || monsters[0]}
                 size="large"
                 animated
-                showMessage
+                showMessage={false}
               />
               
               <AlarmTitle>
-                {activeAlarm.label || 'Zeit aufzustehen!'}
+                {alarmMessage.text}
               </AlarmTitle>
               
-              <ButtonGroup>
-                <Button
-                  size="large"
-                  variant="glass"
-                  onClick={handleSnooze}
+              {alarmMessage.emoji && (
+                <motion.div
+                  animate={{ 
+                    scale: [1, 1.2, 1],
+                    rotate: [0, 5, -5, 0]
+                  }}
+                  transition={{ duration: 2, repeat: Infinity }}
+                  style={{ fontSize: '80px', margin: '20px 0' }}
                 >
-                  Snooze (5 min) 😴
-                </Button>
-                
-                <Button
-                  size="large"
-                  variant="primary"
-                  onClick={handleDismiss}
-                  glow
-                >
-                  Aufstehen! 🌟
-                </Button>
-              </ButtonGroup>
+                  {alarmMessage.emoji}
+                </motion.div>
+              )}
+              
+              <LoveMessageButton
+                onClick={handleDismiss}
+                size="large"
+                glow
+              >
+                Ja, ich stehe auf für dich! 💕
+              </LoveMessageButton>
+              
+              <Button
+                size="medium"
+                variant="glass"
+                onClick={handleSnooze}
+                style={{ marginTop: '16px' }}
+              >
+                Noch 5 Minuten kuscheln... 😴
+              </Button>
             </AlarmScreen>
           )}
           

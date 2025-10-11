@@ -151,21 +151,21 @@ export const AlarmCard: React.FC<AlarmCardProps> = ({
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
           >
-            {alarm.enabled ? <FiBell /> : <FiBellOff />}
+            {alarm.enabled ? '🔔' : '🔕'}
           </ToggleButton>
           <IconButton
             onClick={() => onEdit(alarm)}
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
           >
-            <FiEdit size={20} />
+            ✏️
           </IconButton>
           <IconButton
             onClick={() => onDelete(alarm.id)}
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
           >
-            <FiTrash2 size={20} />
+            🗑️
           </IconButton>
         </Actions>
       </Header>

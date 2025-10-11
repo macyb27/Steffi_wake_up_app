@@ -145,7 +145,7 @@ export const EasterEggs: React.FC = () => {
             initial={{ scale: 0, opacity: 0, rotate: -180 }}
             animate={{ scale: 1, opacity: 1, rotate: 0 }}
             exit={{ scale: 0, opacity: 0, rotate: 180 }}
-            transition={{ type: "spring", stiffness: 260, damping: 20 }}
+            transition={{ type: "spring" as const, stiffness: 260, damping: 20 }}
           >
             <SecretMessage>Du hast das Geheimnis gefunden!</SecretMessage>
             <RewardEmoji>🦄</RewardEmoji>

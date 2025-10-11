@@ -132,7 +132,7 @@ export const MonsterDisplay: React.FC<MonsterDisplayProps> = ({
       scale: 1, 
       opacity: 1,
       transition: {
-        type: "spring",
+        type: "spring" as const,
         stiffness: 260,
         damping: 20,
       }
@@ -144,7 +144,7 @@ export const MonsterDisplay: React.FC<MonsterDisplayProps> = ({
     transition: {
       duration: 3,
       repeat: Infinity,
-      ease: "easeInOut",
+      ease: "easeInOut" as const,
     }
   };
   

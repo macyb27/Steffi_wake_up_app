@@ -116,12 +116,27 @@ const StyledButton = styled(motion.button)<ButtonProps>`
   }
 `;
 
-export const Button: React.FC<ButtonProps & React.ButtonHTMLAttributes<HTMLButtonElement>> = ({
+interface ExtendedButtonProps extends ButtonProps {
+  children: React.ReactNode;
+  onClick?: () => void;
+  disabled?: boolean;
+  style?: React.CSSProperties;
+}
+
+export const Button: React.FC<ExtendedButtonProps> = ({
   children,
+  variant = 'primary',
+  size = 'medium',
+  fullWidth = false,
+  glow = false,
   ...props
 }) => {
   return (
     <StyledButton
+      variant={variant}
+      size={size}
+      fullWidth={fullWidth}
+      glow={glow}
       whileHover={{ scale: 1.05 }}
       whileTap={{ scale: 0.95 }}
       {...props}
