@@ -2,7 +2,11 @@ import React, { useState, useEffect } from 'react';
 import styled from '@emotion/styled';
 import { motion, AnimatePresence } from 'framer-motion';
 import { theme } from '../styles/theme';
-import { loveMessages, getRandomLoveMessage, LoveMessage } from '../utils/messages';
+import { getRandomLoveMessage, LoveMessage, personalizeMessage } from '../utils/messages';
+
+interface LoveMessageBoxProps {
+  userName: string;
+}
 
 const MessageContainer = styled(motion.div)`
   background: linear-gradient(135deg, rgba(255, 16, 240, 0.1), rgba(255, 110, 199, 0.1));
@@ -87,7 +91,7 @@ const RefreshHint = styled.div`
   opacity: 0.7;
 `;
 
-export const LoveMessageBox: React.FC = () => {
+export const LoveMessageBox: React.FC<LoveMessageBoxProps> = ({ userName }) => {
   const [currentMessage, setCurrentMessage] = useState<LoveMessage>(getRandomLoveMessage());
   const [hearts, setHearts] = useState<{ id: number; x: number; y: number }[]>([]);
   
@@ -164,7 +168,7 @@ export const LoveMessageBox: React.FC = () => {
             </MessageEmoji>
           )}
           <MessageText>
-            {currentMessage.text}
+            {personalizeMessage(currentMessage.text, userName)}
           </MessageText>
         </motion.div>
       </AnimatePresence>

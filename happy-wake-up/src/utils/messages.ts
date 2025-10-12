@@ -8,7 +8,7 @@ export interface LoveMessage {
 export const loveMessages: LoveMessage[] = [
   {
     id: 'princess',
-    text: 'Steffi is Princess of the day',
+    text: '{name} is Princess of the day',
     emoji: '👑',
     special: true,
   },
@@ -60,6 +60,10 @@ export const loveMessages: LoveMessage[] = [
 export const getRandomLoveMessage = (): LoveMessage => {
   const randomIndex = Math.floor(Math.random() * loveMessages.length);
   return loveMessages[randomIndex];
+};
+
+export const personalizeMessage = (message: string, name: string): string => {
+  return message.replace('{name}', name);
 };
 
 export const getSpecialMessages = (): LoveMessage[] => {

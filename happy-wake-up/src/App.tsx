@@ -16,7 +16,10 @@ import confetti from 'canvas-confetti';
 import { EasterEggs } from './components/EasterEggs';
 import { MotivationPopup } from './components/MotivationPopup';
 import { LoveMessageBox } from './components/LoveMessageBox';
-import { getRandomLoveMessage } from './utils/messages';
+import { getRandomLoveMessage, personalizeMessage } from './utils/messages';
+import { Onboarding } from './components/Onboarding';
+import { Settings } from './components/Settings';
+import { useLocalStorage } from './hooks/useLocalStorage';
 
 const AppContainer = styled.div`
   min-height: 100vh;
@@ -119,6 +122,30 @@ const FloatingAction = styled(Button)`
   box-shadow: ${theme.shadows.large};
 `;
 
+const SettingsButton = styled(motion.button)`
+  position: fixed;
+  top: 24px;
+  right: 24px;
+  background: ${theme.colors.surface};
+  border: 2px solid ${theme.colors.primary};
+  border-radius: ${theme.borderRadius.round};
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: ${theme.shadows.medium};
+  
+  &:hover {
+    transform: scale(1.1);
+    box-shadow: ${theme.shadows.large};
+    background: ${theme.colors.primary};
+  }
+`;
+
 const AlarmScreen = styled(motion.div)`
   position: fixed;
   top: 0;
@@ -167,6 +194,10 @@ const ButtonGroup = styled.div`
 `;
 
 function App() {
+  const [userName, setUserName] = useLocalStorage<string>('userName', '');
+  const [showOnboarding, setShowOnboarding] = useState(!userName);
+  const [showSettings, setShowSettings] = useState(false);
+  
   const [alarms, setAlarms] = useState<Alarm[]>([
     {
       id: '1',
@@ -287,19 +318,40 @@ function App() {
     ));
   };
   
+  const handleOnboardingComplete = (name: string) => {
+    setUserName(name);
+    setShowOnboarding(false);
+  };
+
+  const handleNameChange = (name: string) => {
+    setUserName(name);
+    setShowSettings(false);
+  };
+
+  if (showOnboarding) {
+    return (
+      <>
+        <GlobalStyles />
+        <Onboarding onComplete={handleOnboardingComplete} />
+      </>
+    );
+  }
+
   return (
     <>
       <GlobalStyles />
       <AppContainer>
         <Header>
           <Title className="neon-text">Happy Wake Up! 🌈</Title>
-          <Subtitle>Wach auf mit einem Lächeln ✨</Subtitle>
+          <Subtitle>
+            {userName ? `Hallo ${userName}! ` : ''}Wach auf mit einem Lächeln ✨
+          </Subtitle>
         </Header>
         
         <Content>
           <Clock />
           
-          <LoveMessageBox />
+          <LoveMessageBox userName={userName || 'Prinzessin'} />
           
           <Stats
             initial={{ opacity: 0, y: 20 }}
@@ -341,6 +393,21 @@ function App() {
           +
         </FloatingAction>
         
+        <SettingsButton
+          onClick={() => setShowSettings(true)}
+          whileHover={{ scale: 1.1, rotate: 15 }}
+          whileTap={{ scale: 0.9 }}
+        >
+          ⚙️
+        </SettingsButton>
+        
+        <Settings
+          isOpen={showSettings}
+          onClose={() => setShowSettings(false)}
+          currentName={userName || 'Prinzessin'}
+          onNameChange={handleNameChange}
+        />
+        
         <EasterEggs />
         <MotivationPopup />
         
@@ -359,7 +426,7 @@ function App() {
               />
               
               <AlarmTitle>
-                {alarmMessage.text}
+                {personalizeMessage(alarmMessage.text, userName || 'Prinzessin')}
               </AlarmTitle>
               
               {alarmMessage.emoji && (

@@ -121,6 +121,7 @@ interface ExtendedButtonProps extends ButtonProps {
   onClick?: () => void;
   disabled?: boolean;
   style?: React.CSSProperties;
+  type?: 'button' | 'submit' | 'reset';
 }
 
 export const Button: React.FC<ExtendedButtonProps> = ({

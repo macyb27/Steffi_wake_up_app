@@ -2,6 +2,13 @@
 
 Eine einzigartige Wecker-App, die speziell entwickelt wurde, um mit guter Laune in den Tag zu starten!
 
+## NEU: Personalisierung! 🎉
+
+Die App ist jetzt vollständig personalisierbar:
+- **Name eingeben** beim ersten Start
+- **Personalisierte Nachrichten** mit deinem Namen
+- **Änderbar** über die Einstellungen (⚙️ Button oben rechts)
+
 ## Features 🌟
 
 ### 🎨 Modernes Design
