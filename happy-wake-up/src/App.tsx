@@ -15,8 +15,8 @@ import { soundManager } from './utils/sounds';
 import confetti from 'canvas-confetti';
 import { EasterEggs } from './components/EasterEggs';
 import { MotivationPopup } from './components/MotivationPopup';
-import { LoveMessageBox } from './components/LoveMessageBox';
-import { getRandomLoveMessage, personalizeMessage } from './utils/messages';
+import { MotivationMessageBox } from './components/MotivationMessageBox';
+import { getRandomMotivationMessage, personalizeMessage } from './utils/messages';
 import { Onboarding } from './components/Onboarding';
 import { Settings } from './components/Settings';
 import { useLocalStorage } from './hooks/useLocalStorage';
@@ -225,7 +225,7 @@ function App() {
   const [activeAlarm, setActiveAlarm] = useState<Alarm | null>(null);
   const [showMiniGame, setShowMiniGame] = useState(false);
   const [currentTime, setCurrentTime] = useState(new Date());
-  const [alarmMessage, setAlarmMessage] = useState(getRandomLoveMessage());
+  const [alarmMessage, setAlarmMessage] = useState(getRandomMotivationMessage());
   
   // Check for alarms
   useEffect(() => {
@@ -251,7 +251,7 @@ function App() {
   
   const triggerAlarm = (alarm: Alarm) => {
     setActiveAlarm(alarm);
-    setAlarmMessage(getRandomLoveMessage());
+    setAlarmMessage(getRandomMotivationMessage());
     soundManager.playSound(alarm.soundId, 0.7);
     
     // Vibrate if supported
@@ -351,7 +351,7 @@ function App() {
         <Content>
           <Clock />
           
-          <LoveMessageBox userName={userName || 'Prinzessin'} />
+          <MotivationMessageBox userName={userName || 'Prinzessin'} />
           
           <Stats
             initial={{ opacity: 0, y: 20 }}
@@ -447,7 +447,7 @@ function App() {
                 size="large"
                 glow
               >
-                Ja, ich stehe auf für dich! 💕
+                Ja, ich stehe auf! 💪
               </LoveMessageButton>
               
               <Button

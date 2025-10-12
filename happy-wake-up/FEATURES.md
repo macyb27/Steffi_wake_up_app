@@ -1,18 +1,18 @@
 # Happy Wake Up! - Features & Easter Eggs 🌈
 
-## Liebesnachrichten von Marc 💕
+## Motivations-Nachrichten 💪
 
-Die App enthält spezielle Nachrichten, die zufällig angezeigt werden:
+Die App enthält spezielle Motivations- und Positive-Vibes-Nachrichten, die zufällig angezeigt werden:
 
 ### Im Alarm-Screen
-- Beim Klingeln des Weckers erscheint eine der Liebesnachrichten
-- Der Aufsteh-Button zeigt "Ja, ich stehe auf für dich! 💕"
+- Beim Klingeln des Weckers erscheint eine der Motivations-Nachrichten
+- Der Aufsteh-Button zeigt "Ja, ich stehe auf! 💪"
 - Jede Nachricht wird mit einem passenden Emoji animiert dargestellt
 
 ### Auf der Hauptseite
-- Eine schöne Message Box zeigt zufällige Liebesnachrichten
+- Eine schöne Message Box zeigt zufällige Motivations-Nachrichten
 - Klicke auf die Box für eine neue Nachricht
-- Herzen fliegen beim Klicken nach oben
+- **NEU**: Totenköpfe (💀 ☠️) und süße Monster fliegen beim Klicken nach oben!
 - Nachrichten wechseln automatisch alle 30 Sekunden
 
 ### Die Nachrichten:
@@ -69,6 +69,18 @@ Die App enthält spezielle Nachrichten, die zufällig angezeigt werden:
 4. **Perfekte Woche:** 7 Tage ohne Snooze = Special Achievement
 5. **10.000 Punkte:** Schaltet "Happiness Overflow" Achievement frei
 
+## Was fliegt nach oben? 🎭
+
+Beim Klicken auf die Motivations-Box fliegen zufällig diese Icons nach oben:
+- 💀 Totenkopf
+- ☠️ Totenkopf mit Knochen  
+- 👻 Geist
+- 🦇 Fledermaus
+- 🕷️ Spinne
+- Alle Monster aus der App (🌟 🫧 ✨ 🦄 🌙 🍒 ☁️ 🌌 🌈 💎 🔥 🪐)
+
+Die Icons rotieren und ändern ihre Größe während sie nach oben schweben!
+
 ---
 
-Made with 💕 für Steffi - die Princess of every day!
+Made with 💪 für maximale Motivation und positive Vibes!

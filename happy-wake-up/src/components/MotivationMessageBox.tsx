@@ -2,9 +2,10 @@ import React, { useState, useEffect } from 'react';
 import styled from '@emotion/styled';
 import { motion, AnimatePresence } from 'framer-motion';
 import { theme } from '../styles/theme';
-import { getRandomLoveMessage, LoveMessage, personalizeMessage } from '../utils/messages';
+import { getRandomMotivationMessage, MotivationMessage, personalizeMessage } from '../utils/messages';
+import { monsters } from '../utils/monsters';
 
-interface LoveMessageBoxProps {
+interface MotivationMessageBoxProps {
   userName: string;
 }
 
@@ -77,10 +78,11 @@ const MessageEmoji = styled(motion.span)`
   margin-bottom: 8px;
 `;
 
-const Hearts = styled(motion.div)`
+const FloatingIcon = styled(motion.div)`
   position: absolute;
-  font-size: 20px;
+  font-size: 24px;
   pointer-events: none;
+  z-index: 10;
 `;
 
 const RefreshHint = styled.div`
@@ -91,32 +93,36 @@ const RefreshHint = styled.div`
   opacity: 0.7;
 `;
 
-export const LoveMessageBox: React.FC<LoveMessageBoxProps> = ({ userName }) => {
-  const [currentMessage, setCurrentMessage] = useState<LoveMessage>(getRandomLoveMessage());
-  const [hearts, setHearts] = useState<{ id: number; x: number; y: number }[]>([]);
+const floatingIcons = ['💀', '☠️', '👻', '🦇', '🕷️', ...monsters.map(m => m.emoji)];
+
+export const MotivationMessageBox: React.FC<MotivationMessageBoxProps> = ({ userName }) => {
+  const [currentMessage, setCurrentMessage] = useState<MotivationMessage>(getRandomMotivationMessage());
+  const [floatingElements, setFloatingElements] = useState<{ id: number; icon: string; x: number; y: number }[]>([]);
   
   const handleClick = () => {
     // Change message
-    setCurrentMessage(getRandomLoveMessage());
+    setCurrentMessage(getRandomMotivationMessage());
     
-    // Create heart animation
-    const newHeart = {
+    // Create floating animation with random icon
+    const randomIcon = floatingIcons[Math.floor(Math.random() * floatingIcons.length)];
+    const newElement = {
       id: Date.now(),
+      icon: randomIcon,
       x: Math.random() * 100,
       y: 100,
     };
-    setHearts([...hearts, newHeart]);
+    setFloatingElements([...floatingElements, newElement]);
     
-    // Remove heart after animation
+    // Remove element after animation
     setTimeout(() => {
-      setHearts(prev => prev.filter(h => h.id !== newHeart.id));
+      setFloatingElements(prev => prev.filter(e => e.id !== newElement.id));
     }, 3000);
   };
   
   // Auto-rotate messages every 30 seconds
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentMessage(getRandomLoveMessage());
+      setCurrentMessage(getRandomMotivationMessage());
     }, 30000);
     
     return () => clearInterval(interval);
@@ -133,14 +139,14 @@ export const LoveMessageBox: React.FC<LoveMessageBoxProps> = ({ userName }) => {
     >
       <MessageHeader>
         <Title>
-          💌 Nachricht für dich
+          ⚡ Motivation für dich
         </Title>
         <motion.span
           animate={{ rotate: [0, 10, -10, 0] }}
           transition={{ duration: 2, repeat: Infinity }}
           style={{ fontSize: '24px' }}
         >
-          💕
+          🎯
         </motion.span>
       </MessageHeader>
       
@@ -174,24 +180,26 @@ export const LoveMessageBox: React.FC<LoveMessageBoxProps> = ({ userName }) => {
       </AnimatePresence>
       
       <RefreshHint>
-        Klick mich für eine neue Nachricht 💝
+        Klick mich für neue Motivation 💪
       </RefreshHint>
       
       <AnimatePresence>
-        {hearts.map(heart => (
-          <Hearts
-            key={heart.id}
-            initial={{ x: `${heart.x}%`, y: '50%', opacity: 1 }}
+        {floatingElements.map(element => (
+          <FloatingIcon
+            key={element.id}
+            initial={{ x: `${element.x}%`, y: '50%', opacity: 1, scale: 1 }}
             animate={{ 
               y: '-100%',
               opacity: 0,
-              x: `${heart.x + (Math.random() - 0.5) * 50}%`
+              x: `${element.x + (Math.random() - 0.5) * 50}%`,
+              scale: [1, 1.5, 0.5],
+              rotate: [0, 360, 720]
             }}
             exit={{ opacity: 0 }}
             transition={{ duration: 3, ease: "easeOut" }}
           >
-            💖
-          </Hearts>
+            {element.icon}
+          </FloatingIcon>
         ))}
       </AnimatePresence>
     </MessageContainer>

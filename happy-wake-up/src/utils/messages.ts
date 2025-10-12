@@ -1,11 +1,11 @@
-export interface LoveMessage {
+export interface MotivationMessage {
   id: string;
   text: string;
   emoji?: string;
   special?: boolean;
 }
 
-export const loveMessages: LoveMessage[] = [
+export const motivationMessages: MotivationMessage[] = [
   {
     id: 'princess',
     text: '{name} is Princess of the day',
@@ -57,17 +57,17 @@ export const loveMessages: LoveMessage[] = [
   },
 ];
 
-export const getRandomLoveMessage = (): LoveMessage => {
-  const randomIndex = Math.floor(Math.random() * loveMessages.length);
-  return loveMessages[randomIndex];
+export const getRandomMotivationMessage = (): MotivationMessage => {
+  const randomIndex = Math.floor(Math.random() * motivationMessages.length);
+  return motivationMessages[randomIndex];
 };
 
 export const personalizeMessage = (message: string, name: string): string => {
   return message.replace('{name}', name);
 };
 
-export const getSpecialMessages = (): LoveMessage[] => {
-  return loveMessages.filter(msg => msg.special);
+export const getSpecialMessages = (): MotivationMessage[] => {
+  return motivationMessages.filter(msg => msg.special);
 };
 
 // Zusätzliche süße Nachrichten für zwischendurch
