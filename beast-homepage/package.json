@@ -1,0 +1,28 @@
+{
+  "name": "beast-homepage",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.12.2",
+    "next": "^15.5.4",
+    "nodemailer": "^7.0.9",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "react-google-recaptcha": "^3.1.0"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.21",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^3.4.18"
+  }
+}
